@@ -1,12 +1,16 @@
-/* b.c interchanges each pair of bits in an unsigned char */
+/* b.c interchanges each pair of bits in an unsigned char command line arg 
+   Usage: $0 <byte in hex>
+   Example: $0 9a
+*/
 #include <stdio.h>
 
 unsigned char nibswap(unsigned char nib)
 {
+  /* For a nib, 2 bits, if they differ, swap them.
+   */
   switch(nib) 
 	{
 	case 0:
-	  return nib;
 	case 3:
 	  return nib;
 	case 1:
@@ -20,6 +24,9 @@ unsigned char nibswap(unsigned char nib)
 
 unsigned char swapnibs(unsigned char byte)
 {
+  /* For each nib, 2 bits, shift them rightmost, mask, nibswap and shift
+	 them back to their position.
+   */
   unsigned char answer = 0;
   int i;
   for (i = 0; i < 4; i++)
@@ -31,6 +38,9 @@ unsigned char swapnibs(unsigned char byte)
 
 unsigned char strtobyte( char *c)
 {
+  /* Convert a string represent hexadecimal 00 - ff to its byte value.
+	
+   */
   int i;
   unsigned char byte = 0;
   char *p = c;
@@ -53,6 +63,9 @@ unsigned char strtobyte( char *c)
 
 int main(int argc, char **argv)
 {
+  /* Call as: ./b <hex byte>
+	 eg. ./b a5
+   */
   printf("%s has %d args\n",argv[0], argc);
   printf("input: %s\n", argv[1]);
   unsigned char inputbyte = strtobyte(argv[1]);
